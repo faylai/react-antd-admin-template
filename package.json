@@ -43,7 +43,7 @@
     "xlsx": "^0.16.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "react-app-rewired  --openssl-legacy-provider start",
     "build": "react-app-rewired --max-old-space-size=4096 build ",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
@@ -71,7 +71,7 @@
     "customize-cra": "^0.9.1",
     "cz-conventional-changelog": "^3.0.2",
     "mockjs": "^1.1.0",
-    "react-app-rewired": "^2.1.5"
+    "react-app-rewired": "^2.2.1"
   },
   "config": {
     "commitizen": {
