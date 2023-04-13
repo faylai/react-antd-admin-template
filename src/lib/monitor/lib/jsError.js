@@ -10,8 +10,8 @@ const ERROR_STYLE = 3
 const ERROR_IMAGE = 4
 const ERROR_AUDIO = 5
 const ERROR_VIDEO = 6
-const ERROR_CONSOLE = 7
-const ERROR_TRY_CATHC = 8
+// const ERROR_CONSOLE = 7
+// const ERROR_TRY_CATHC = 8
 
 const LOAD_ERROR_TYPE = {
   SCRIPT: ERROR_SCRIPT,

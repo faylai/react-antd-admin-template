@@ -71,7 +71,7 @@ class EditForm extends Component {
           <Form.Item label="时间:">
             {getFieldDecorator("date", {
               rules: [{ type: 'object', required: true, message: '请选择时间!' }],
-              initialValue: moment(date || "YYYY-MM-DD HH:mm:ss"),
+              initialValue: moment(date , "YYYY-MM-DD HH:mm:ss"),
             })(<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />)}
           </Form.Item>
         </Form>

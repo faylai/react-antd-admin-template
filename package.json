@@ -50,7 +50,12 @@
     "commit": "git cz"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "plugins": ["jsx-a11y"],
+    "rules": {
+      "jsx-a11y/anchor-is-valid": "off",
+      "jsx-a11y/anchor-has-content": "off"
+    }
   },
   "browserslist": {
     "production": [

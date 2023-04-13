@@ -23,6 +23,14 @@ class Meun extends Component {
     openKey: [],
   };
 
+  constructor(props) {
+    super(props);
+    let menuItem = getMenuItemInMenuListByProperty(menuList, "path", this.props.location.pathname);
+    if(menuItem){
+      this.props.addTag(menuItem)
+    }
+  }
+
   // filterMenuItem用来根据配置信息筛选可以显示的菜单项
   filterMenuItem = (item) => {
     const { roles } = item;
@@ -109,6 +117,7 @@ class Meun extends Component {
     });
     this.handleMenuSelect(this.state.openKey);
   }
+
   render() {
     const path = this.props.location.pathname;
     const openKey = this.state.openKey;

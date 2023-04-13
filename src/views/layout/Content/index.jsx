@@ -90,6 +90,7 @@ const CacheRouteDom = React.memo(props => {
             setView(props.path, domPromiseRef.current)
         }
         const isMatch = useRouteMatch(props.path) !== null
+        // 增加性能避免开始的时候就完全初始化处所的 Route
         const isMatchRef = React.useRef(false)
         if (isMatch) {
             isMatchRef.current = true
@@ -100,28 +101,27 @@ const CacheRouteDom = React.memo(props => {
                 domPromiseRef.current.resolve(ref.current.firstElementChild)
             }
 
-        }, [ref.current])
+        }, [])
         React.useEffect(function () {
             //console.log("create", props.path, props.isMatch)
             return function () {
                 console.log("destroy", props.path)
             }
-        }, [])
+        }, [props.path])
         console.log("props.isTagViewInStore", props.path, 'isMatch', isMatchRef.current)
         return <div ref={ref}>
             <div style={{width: '100%', height: '100%'}}>
-            {isMatchRef.current ? React.createElement(props.component, props) : <div>not match {props.path}</div>}
+                {isMatchRef.current ? React.createElement(props.component, props) : <div>not match {props.path}</div>}
             </div>
         </div>
     }, (prevProps, nextProps) => {
-        // console.log(prevProps.path, prevProps.isMatch)
-        // console.log(nextProps.path, nextProps.isMatch)
-        // console.log('----------->', prevProps.path == nextProps.path && prevProps.isMatch === nextProps.isMatch)
-        return prevProps.path == nextProps.path
+        // eslint-disable-next-line
+        return String(prevProps.path) == String(nextProps.path)
     }
 )
 
 function WithTagViewStore(props) {
+    // 从redux 中 的 tagsView 来决定是否销毁缓存的路由组件
     const isTagViewInStore = useSelector((state) => {
         return state.tagsView.taglist.map(tag => tag.path).includes(props.path)
     });
@@ -139,25 +139,25 @@ function WithTagViewStore(props) {
 
 function DisplayCacheRouteDom(props) {
     const ref = React.useRef(null);
-    function insertView(counter) {
+    const insertDom = React.useCallback(function insertView(counter) {
         const domPromise = getView(props.path)
         if (ref.current && domPromise !== null) {
             domPromise.promise.then((view) => {
-                console.log("insert view", counter, DisplayCacheRouteDom.counter, view)
+                console.log("insert view", counter, DisplayCacheRouteDom.counter)
                 if (ref.current && counter === DisplayCacheRouteDom.counter) {
                     ref.current.appendChild(view)
                     window.dispatchEvent(new Event('resize'));
                 }
             })
         }
-    }
+    }, [props.path])
 
     React.useEffect(function () {
         if (ref.current) {
             DisplayCacheRouteDom.counter++
-            insertView(DisplayCacheRouteDom.counter)
+            insertDom(DisplayCacheRouteDom.counter)
         }
-    }, [ref.current])
+    }, [insertDom])
     return <div ref={ref} style={{width: '100%', height: '100%'}}></div>
 }
 
