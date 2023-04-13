@@ -38,7 +38,7 @@ const Dashboard = () => {
   return (
     <div className="app-container">
       <a
-        href="https://github.com/NLRX-WJC/react-antd-admin-template"
+        href="https://github.com/faylai/react-antd-admin-template"
         target="_blank"
         rel="noopener noreferrer"
         className="github-corner"

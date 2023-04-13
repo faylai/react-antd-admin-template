@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "react-app-rewired  --openssl-legacy-provider start",
-    "build": "react-app-rewired --max-old-space-size=4096 build ",
+    "build": "react-app-rewired --max-old-space-size=4096 --openssl-legacy-provider build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "commit": "git cz"

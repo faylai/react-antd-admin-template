@@ -4,7 +4,7 @@ import wechat from "@/assets/images/wechat.jpg";
 import reward from "@/assets/images/reward.jpg";
 const About = () => {
   const cardContent = `
-    <p>大家好，我是难凉热血。</p>
+    <p>大家好，我是大胡子。</p>
     <p>终南山下码农一枚，师从道长王重阳，酷爱打码，崇尚开源精神，乐于分享。</p>
     <p>2005年服役于中国人民解放军东南战区狼牙特种大队，担任狙击手。</p>
     <p>2008年受俄罗斯阿尔法特种部队邀请，执教于该特种部队第一大队教授其队员学习中国特色社会主义理论及毛泽东思想。</p>
