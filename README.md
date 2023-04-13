@@ -12,8 +12,7 @@
 本系统的开发灵感来自 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin/) ，这是一个基于 `Vue` 和 `ElementUI` 的优秀的后台管理系统模板，在这里向大佬致敬！
 
 fork 于[难凉热血] react-antd-admin-template,增加类似于vue 中 keep-alive 选卡记忆功能
-- [在线预览](https://nlrx-wjc.github.io/react-antd-admin-template/)
-- [Gitee在线预览(国内用户可访问该地址)](https://nlrx.gitee.io/react-antd-admin-template/)
+- [在线预览](http://react.apizen.cn/)
 - [开发文档](https://nlrx-wjc.github.io/react-antd-admin-template-doc/) 目前还在持续编写完善中...
 
 # 功能
