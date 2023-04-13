@@ -29,7 +29,6 @@ const getPageTitle = (menuList, pathname) => {
 const LayoutContent = (props) => {
     const {role, location} = props;
     const {pathname} = location;
-    console.log("pathname", pathname)
     const handleFilter = (route) => {
         // 过滤没有权限的页面
         return role === "admin" || !route.roles || route.roles.includes(role);
@@ -92,6 +91,7 @@ const CacheRouteDom = React.memo(props => {
         const isMatch = useRouteMatch(props.path) !== null
         // 增加性能避免开始的时候就完全初始化处所的 Route
         const isMatchRef = React.useRef(false)
+        // 路由匹配过了就缓存起来
         if (isMatch) {
             isMatchRef.current = true
         }
@@ -103,12 +103,12 @@ const CacheRouteDom = React.memo(props => {
 
         }, [])
         React.useEffect(function () {
-            //console.log("create", props.path, props.isMatch)
+            console.log("create component:", props.path," and isMatch:",isMatchRef.current)
             return function () {
-                console.log("destroy", props.path)
+                console.log("destroy component:", props.path," and isMatch:",isMatchRef.current)
             }
         }, [props.path])
-        console.log("props.isTagViewInStore", props.path, 'isMatch', isMatchRef.current)
+        // console.log("props.isTagViewInStore", props.path, 'isMatch', isMatchRef.current)
         return <div ref={ref}>
             <div style={{width: '100%', height: '100%'}}>
                 {isMatchRef.current ? React.createElement(props.component, props) : <div>not match {props.path}</div>}
@@ -132,7 +132,8 @@ function WithTagViewStore(props) {
         isTagViewInStoreRef.current = isTagViewInStore
     }
     const key = [props.path, counterRef.current].join('_')
-    console.log("key is", key, 'isTagViewInStore:', isTagViewInStore)
+    console.log("触发重新渲染:", props.path)
+    // key 变动就会触发子组件生命周期
     return React.createElement(CacheRouteDom, {...props, key});
 }
 
@@ -143,7 +144,7 @@ function DisplayCacheRouteDom(props) {
         const domPromise = getView(props.path)
         if (ref.current && domPromise !== null) {
             domPromise.promise.then((view) => {
-                console.log("insert view", counter, DisplayCacheRouteDom.counter)
+                // console.log("insert view", counter, DisplayCacheRouteDom.counter)
                 if (ref.current && counter === DisplayCacheRouteDom.counter) {
                     ref.current.appendChild(view)
                     window.dispatchEvent(new Event('resize'));
